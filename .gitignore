@@ -1,0 +1,9 @@
+src/Debug/*
+src/Release/*
+src/ipch/*
+src/Game1DMultiClase/Debug/*
+src/Game1DMultiClase/Release/*
+*.exe
+*.sdf
+*.ipch
+*.suo
