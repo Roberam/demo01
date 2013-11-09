@@ -54,6 +54,9 @@ public:
 
 	//Muestra derrota por pantalla.
 	void DrawGameOver() const;
+
+	//Muestra comienzo por pantalla.
+	void DrawStartPlay() const;
 private:
 	bool m_playing;
 	bool m_heroDead;

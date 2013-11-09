@@ -321,6 +321,19 @@ void World::DrawGameOver() const
 	gotoxy(posX, posY);
 	printf(gameOver);
 	gotoxy(XINFO_INI, YINFO_FIN + 2);
-	printf("PULSE <Esc> PARA SALIR...");
+	printf("PRESS <Esc> TO EXIT...");
 	printf("\t\tFINAL SCORE: %d", m_numMurders);
+}
+
+void World::DrawStartPlay() const
+{
+	DrawFrame();
+	int halfBase = (XMAP_INI + XMAP_FIN)/2;
+	int halfHeight = (YSKY_INI + YMAP_INI)/2;
+	for(int i = 5; i > 0; i--)
+	{
+		gotoxy(halfBase - 8, halfHeight + 1);
+		printf("COMIENZO EN... %d", i);
+		Sleep(1000);
+	}
 }

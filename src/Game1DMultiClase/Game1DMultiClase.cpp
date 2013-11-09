@@ -12,6 +12,9 @@ int _tmain(int argc, _TCHAR* argv[])
 	World* world = new World();
 	InputManager input(world);
 
+	//Comienzo del juego.
+	world->DrawStartPlay();
+
 	//Bucle principal del juego.
 	while (world->IsPlaying())
 	{
