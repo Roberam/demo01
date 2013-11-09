@@ -56,7 +56,7 @@ void World::UpdateWorld()
 void World::UpdateEnemies()
 {
 	if (!m_entities[ENEMY_LEFT]->IsActive())
-		m_entities[ENEMY_LEFT]->Active(XMAP_INI);
+		m_entities[ENEMY_LEFT]->Active(XMAP_INI-1);
 	if (!m_entities[ENEMY_RIGHT]->IsActive())
 		m_entities[ENEMY_RIGHT]->Active(XMAP_FIN);
 }
@@ -114,6 +114,7 @@ void World::Render() const
 {
 	hidecursor();
 	DrawFrame();
+	DrawIntFrame();
 	DrawBase();
 	DrawRain();
 	DrawEntities();
@@ -194,6 +195,26 @@ void World::DrawFrame() const
 		gotoxy(0, i);
 		printf("%c", C_FRAME);
 		gotoxy(X_MAX, i);
+		printf("%c", C_FRAME);
+	}
+}
+
+void World::DrawIntFrame() const
+{
+	for (int i = XMAP_INI; i < XMAP_FIN; i++)	//Horizontales.
+	{
+		gotoxy(i, YSKY_INI-1);
+		printf("%c", C_FRAME);
+		gotoxy(i, YMAP_INI+2);
+		printf("%c", C_FRAME);
+		gotoxy(i, YINFO_FIN);
+		printf("%c", C_FRAME);
+	}
+	for (int i = YSKY_INI-1; i <= YINFO_FIN; i++)	//Verticales.
+	{
+		gotoxy(XMAP_INI-1, i);
+		printf("%c", C_FRAME);
+		gotoxy(XMAP_FIN, i);
 		printf("%c", C_FRAME);
 	}
 }
@@ -293,6 +314,11 @@ void World::DrawChar(int pos, int i) const
 
 void World::DrawInfo() const
 {
-	gotoxy(XMAP_INI, YINFO_INI);
-	printf("ENEMIGOS MUERTOS: %d", m_numMurders);
+	SetColorText(COLOR_INFO);
+	gotoxy(XINFO_INI, YINFO_INI);
+	printf("MOVE %c <-  %c ->\t", toupper(LEFT_KEY), toupper(RIGHT_KEY));
+	printf("SHOT %c <-  %c ->\t", toupper(LEFT_SHOT), toupper(RIGHT_SHOT));
+	SetColorText(COLOR_INFO);
+	SetColorText(COLOR_RESET);
+	printf("\tSCORE: %d", m_numMurders);
 }

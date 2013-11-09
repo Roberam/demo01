@@ -70,6 +70,9 @@ private:
 	//Muestra un marco por pantalla.
 	void DrawFrame() const;
 
+	//Muestra el marco interior por pantalla.
+	void DrawIntFrame() const;
+
 	//Muestra la base del por pantalla.
 	void DrawBase() const;
 

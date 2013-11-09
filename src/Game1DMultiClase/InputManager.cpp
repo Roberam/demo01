@@ -19,6 +19,8 @@ void InputManager::CatchUser()
 	if (_kbhit())
 	{
 		char keyPressed = _getch();
+		if ('a' <= keyPressed && keyPressed <= 'z')
+			keyPressed = toupper(keyPressed);
 		if (keyPressed == ESC)
 			m_action = ESCAPE;
 		else if (keyPressed == LEFT_KEY)
