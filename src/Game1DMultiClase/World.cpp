@@ -11,7 +11,7 @@
 World::World()
 {
 	StartPlay();
-	srand(time(NULL));
+	srand((int)time(NULL));
 	m_hero = new EntHero();
 	m_entities = new Entity*[NUM_ENTITIES];
 	StarEntities();
@@ -112,6 +112,7 @@ bool World::LookingCollisions()
 
 void World::Render() const
 {
+	hidecursor();
 	DrawFrame();
 	DrawBase();
 	DrawRain();
@@ -134,7 +135,7 @@ void World::StartRain()
 	auto it = m_rain.begin();
 	for (int i = 0; i < MAX_NUM_RAINDROP; i++)
 	{
-		pos = Randomize(WIDTH) + XMAP_INI;
+		pos = Randomize(XMAP_INI, XMAP_FIN);
 		EntRainDrop* water = new EntRainDrop();
 		water->SetPos(pos);
 		m_rain.push_back(*water);
@@ -197,8 +198,22 @@ void World::DrawFrame() const
 	}
 }
 
+void World::DrawBackGround() const
+{
+	for (int i = YSKY_INI; i < YMAP_INI; i++)
+	{
+		for (int j = XMAP_INI; j < XMAP_FIN; j++)
+		{
+			gotoxy(j, i);
+			printf("%c", C_BACKGROUND);
+		}
+	}
+}
+
 void World::DrawBase() const
 {
+	SetColorText(COLOR_BACK);
+	DrawBackGround();
 	SetColorText(COLOR_MAP);
 	gotoxy(XMAP_INI, YMAP_INI);
 	for(int i = 0; i < WIDTH; i++)
@@ -213,11 +228,16 @@ void World::DrawRain() const
 	{
 		if (m_rain[i].IsActive())
 		{
-			gotoxy(m_rain[i].GetPos(), YMAP_INI);
-			if (FLOOR_LIFE_WATER <= m_rain[i].GetLife())
-				printf("%c", C_FALLING_RAINDROP);
-			else
-				printf("%c", C_RAINDROP);
+			int lifeRainDrop = m_rain[i].GetLife();
+			if (lifeRainDrop <= MIN_LIFE_WATER - FLOOR_LIFE_WATER)
+			{
+				int posY = YMAP_INI - lifeRainDrop;
+				gotoxy(m_rain[i].GetPos(), posY);
+				if (FLOOR_LIFE_WATER <= lifeRainDrop)
+					printf("%c", C_FALLING_RAINDROP);
+				else
+					printf("%c", C_RAINDROP);
+			}
 		}
 	}
 	SetColorText(COLOR_RESET);
@@ -229,8 +249,7 @@ void World::DrawEntities() const
 	{
 		if (m_entities[i]->IsActive())
 		{
-			gotoxy(m_entities[i]->GetPos(), YMAP_INI);
-			DrawChar(i);
+			DrawChar(m_entities[i]->GetPos(), i);
 		}
 	}
 }
@@ -238,28 +257,35 @@ void World::DrawEntities() const
 void World::DrawHero() const
 {
 	SetColorText(COLOR_HERO);
+	gotoxy(m_hero->GetPos(), YMAP_INI-1);
+	printf("%c", C_HERO);
 	gotoxy(m_hero->GetPos(), YMAP_INI);
 	printf("%c", C_HERO);
 	SetColorText(COLOR_RESET);
 }
 
-void World::DrawChar(int i) const
+void World::DrawChar(int pos, int i) const
 {
 	if (i == 0 || i == 1)
 	{
 		SetColorText(COLOR_ENEMY);
+		gotoxy(pos, YMAP_INI-1);
+		printf("%c", C_ENEMY);
+		gotoxy(pos, YMAP_INI);
 		printf("%c", C_ENEMY);
 		SetColorText(COLOR_RESET);
 	}
 	else if (i == 2)
 	{
 		SetColorText(COLOR_BULLET);
+		gotoxy(pos, YMAP_INI-1);
 		printf("%c", C_BULLET_LEFT);
 		SetColorText(COLOR_RESET);
 	}
 	else if (i == 3)
 	{
 		SetColorText(COLOR_BULLET);
+		gotoxy(pos, YMAP_INI-1);
 		printf("%c", C_BULLET_RIGHT);
 		SetColorText(COLOR_RESET);
 	}

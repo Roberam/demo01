@@ -73,6 +73,9 @@ private:
 	//Muestra la base del por pantalla.
 	void DrawBase() const;
 
+	//Limpia el fondo del mapeado.
+	void DrawBackGround() const;
+
 	//Muestra la lluvia por pantalla.
 	void DrawRain() const;
 
@@ -83,7 +86,7 @@ private:
 	void DrawHero() const;
 
 	//Muestra un caracter entidad por pantalla.
-	void DrawChar(int i) const;
+	void DrawChar(int pos, int i) const;
 
 	//Muestra informacion extra de la partida.
 	void DrawInfo() const;

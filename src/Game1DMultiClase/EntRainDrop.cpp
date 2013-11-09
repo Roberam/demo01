@@ -6,7 +6,7 @@
 
 EntRainDrop::EntRainDrop()
 {
-	m_life = Randomize(MAX_LIFE_WATER);
+	m_life = Randomize(MIN_LIFE_WATER, MAX_LIFE_WATER);
 }
 
 EntRainDrop::~EntRainDrop()
@@ -24,9 +24,9 @@ void EntRainDrop::Update()
 	}
 	else
 	{
-		int pos = Randomize(WIDTH) + XMAP_INI;
+		int pos = Randomize(XMAP_INI, XMAP_FIN);
 		Active(pos);
-		m_life = Randomize(MAX_LIFE_WATER);
+		m_life = Randomize(MIN_LIFE_WATER, MAX_LIFE_WATER);
 	}
 }
 

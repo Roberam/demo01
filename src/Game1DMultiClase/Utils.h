@@ -11,10 +11,13 @@
 //Lleva el cursor de pantalla a la posicion deseada.
 void gotoxy(int, int);
 
-//Devuelve un numero al azar entre 0 y el argumento pasado.
-int Randomize(int);
+//Devuelve un numero al azar entre los argumentos pasados.
+int Randomize(int, int);
 
 //Cambia el color del texto de consola.
 void SetColorText(int);
+
+//Oculta el cursor en pantalla.
+void hidecursor(void);
 
 #endif
