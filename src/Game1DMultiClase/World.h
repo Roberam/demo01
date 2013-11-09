@@ -48,8 +48,15 @@ public:
 
 	//Muestra el mundo por pantalla.
 	void Render() const;
+
+	//Devuelve el estado del heroe.
+	bool IsHeroDead() const;
+
+	//Muestra derrota por pantalla.
+	void DrawGameOver() const;
 private:
 	bool m_playing;
+	bool m_heroDead;
 	EntHero* m_hero;
 	Entity** m_entities;
 	std::vector<EntRainDrop> m_rain;
@@ -69,9 +76,6 @@ private:
 
 	//Muestra un marco por pantalla.
 	void DrawFrame() const;
-
-	//Muestra el marco interior por pantalla.
-	void DrawIntFrame() const;
 
 	//Muestra la base del por pantalla.
 	void DrawBase() const;

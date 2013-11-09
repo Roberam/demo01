@@ -11,6 +11,7 @@
 World::World()
 {
 	StartPlay();
+	m_heroDead = false;
 	srand((int)time(NULL));
 	m_hero = new EntHero();
 	m_entities = new Entity*[NUM_ENTITIES];
@@ -114,12 +115,16 @@ void World::Render() const
 {
 	hidecursor();
 	DrawFrame();
-	DrawIntFrame();
 	DrawBase();
 	DrawRain();
 	DrawEntities();
 	DrawHero();
 	DrawInfo();
+}
+
+bool World::IsHeroDead() const
+{
+	return m_heroDead;
 }
 
 void World::StarEntities()
@@ -179,29 +184,14 @@ bool World::EnemyCollisions()
 		if (m_entities[ENEMY_RIGHT]->GetPos() <= m_hero->GetPos())
 			HeroDead = true;
 	}
+	if (HeroDead)
+		m_heroDead = true;
 	return HeroDead;
 }
 
 void World::DrawFrame() const
 {
-	gotoxy(0, 0);
-	for(int i = 0; i <= X_MAX; i++)
-		printf("%c", C_FRAME);
-	gotoxy(0, Y_MAX);
-	for(int i = 0; i <= X_MAX; i++)
-		printf("%c", C_FRAME);
-	for(int i = 0; i <= Y_MAX; i++)
-	{
-		gotoxy(0, i);
-		printf("%c", C_FRAME);
-		gotoxy(X_MAX, i);
-		printf("%c", C_FRAME);
-	}
-}
-
-void World::DrawIntFrame() const
-{
-	for (int i = XMAP_INI; i < XMAP_FIN; i++)	//Horizontales.
+	for (int i = XMAP_INI; i < XMAP_FIN; i++)
 	{
 		gotoxy(i, YSKY_INI-1);
 		printf("%c", C_FRAME);
@@ -210,7 +200,7 @@ void World::DrawIntFrame() const
 		gotoxy(i, YINFO_FIN);
 		printf("%c", C_FRAME);
 	}
-	for (int i = YSKY_INI-1; i <= YINFO_FIN; i++)	//Verticales.
+	for (int i = YSKY_INI-1; i <= YINFO_FIN; i++)
 	{
 		gotoxy(XMAP_INI-1, i);
 		printf("%c", C_FRAME);
@@ -321,4 +311,16 @@ void World::DrawInfo() const
 	SetColorText(COLOR_INFO);
 	SetColorText(COLOR_RESET);
 	printf("\tSCORE: %d", m_numMurders);
+}
+
+void World::DrawGameOver() const
+{
+	char* gameOver = " GAME OVER ";
+	int posX = Randomize(XMAP_INI, XMAP_FIN - 10);
+	int posY = Randomize(YSKY_INI, YINFO_FIN);
+	gotoxy(posX, posY);
+	printf(gameOver);
+	gotoxy(XINFO_INI, YINFO_FIN + 2);
+	printf("PULSE <Esc> PARA SALIR...");
+	printf("\t\tFINAL SCORE: %d", m_numMurders);
 }

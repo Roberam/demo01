@@ -16,26 +16,44 @@ InputManager::~InputManager()
 
 void InputManager::CatchUser()
 {
-	if (_kbhit())
+	char keyPressed = NULL;
+	if (m_world->IsHeroDead())
 	{
-		char keyPressed = _getch();
-		if ('a' <= keyPressed && keyPressed <= 'z')
-			keyPressed = toupper(keyPressed);
-		if (keyPressed == ESC)
-			m_action = ESCAPE;
-		else if (keyPressed == LEFT_KEY)
-			m_action = MOVE_LEFT;
-		else if (keyPressed == RIGHT_KEY)
-			m_action = MOVE_RIGHT;
-		else if (keyPressed == LEFT_SHOT)
-			m_action = SHOT_LEFT;
-		else if (keyPressed == RIGHT_SHOT)
-			m_action = SHOT_RIGHT;
+		system("color 0A");
+		while (keyPressed != ESC)
+		{
+			Sleep(TIME_SLEEP);
+			m_world->DrawGameOver();
+			if (_kbhit())
+			{
+				keyPressed = _getch();
+			}
+		}
+		system("color 07");
+	}
+	else
+	{
+		if (_kbhit())
+		{
+			keyPressed = _getch();
+			if ('a' <= keyPressed && keyPressed <= 'z')
+				keyPressed = toupper(keyPressed);
+			if (keyPressed == ESC)
+				m_action = ESCAPE;
+			else if (keyPressed == LEFT_KEY)
+				m_action = MOVE_LEFT;
+			else if (keyPressed == RIGHT_KEY)
+				m_action = MOVE_RIGHT;
+			else if (keyPressed == LEFT_SHOT)
+				m_action = SHOT_LEFT;
+			else if (keyPressed == RIGHT_SHOT)
+				m_action = SHOT_RIGHT;
+			else
+				m_action = NOTHING;
+		}
 		else
 			m_action = NOTHING;
 	}
-	else
-		m_action = NOTHING;
 }
 
 void InputManager::InputUse()
