@@ -45,13 +45,17 @@ const char RIGHT_SHOT = 'L';
 const char ESC = 27;
 
 //Imagen de Heroe.
-const char C_HERO = 'X';
+const char C_HERO_UP = 'Y';
+const char C_HERO_MID = 'O';
+const char C_HERO_DOWN = 'U';
 //Imagen de bala izquierda.
-const char C_BULLET_LEFT = '_';
+const char C_BULLET_LEFT = '<';
 //Imagen de bala derecha.
-const char C_BULLET_RIGHT = '_';
+const char C_BULLET_RIGHT = '>';
 //Imagen de enemigo.
-const char C_ENEMY = 'X';
+const char C_ENEMY_UP = 'D';
+const char C_ENEMY_MID = 'I';
+const char C_ENEMY_DOWN = 'E';
 //Imagen del mapa.
 const char C_MAP = '_';
 //Imagen de la gota de lluvia cayendo.
@@ -89,9 +93,9 @@ const int MOV_ENEMY_LEFT = 1;
 //Velocidad del enemigo derecha.
 const int MOV_ENEMY_RIGHT = -1;
 //Velocidad de la bala izquierda.
-const int MOV_BULLET_LEFT = -4;
+const int MOV_BULLET_LEFT = -3;
 //Velocidad de la bala derecha.
-const int MOV_BULLET_RIGHT = 4;
+const int MOV_BULLET_RIGHT = 3;
 //Velocidad del heroe izquierda.
 const int MOV_HERO_LEFT = -1;
 //Velocidad del heroe derecha.

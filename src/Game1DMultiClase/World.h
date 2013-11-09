@@ -98,6 +98,12 @@ private:
 	//Muestra un caracter entidad por pantalla.
 	void DrawChar(int pos, int i) const;
 
+	//Muestra un enemigo por pantalla.
+	void DrawEnemy(int pos) const;
+
+	//Muestra una bala por pantalla.
+	void DrawBullet(int pos, TMOV mov) const;
+
 	//Muestra informacion extra de la partida.
 	void DrawInfo() const;
 };

@@ -268,38 +268,46 @@ void World::DrawEntities() const
 void World::DrawHero() const
 {
 	SetColorText(COLOR_HERO);
+	gotoxy(m_hero->GetPos(), YMAP_INI-2);
+	printf("%c", C_HERO_UP);
 	gotoxy(m_hero->GetPos(), YMAP_INI-1);
-	printf("%c", C_HERO);
+	printf("%c", C_HERO_MID);
 	gotoxy(m_hero->GetPos(), YMAP_INI);
-	printf("%c", C_HERO);
+	printf("%c", C_HERO_DOWN);
 	SetColorText(COLOR_RESET);
 }
 
 void World::DrawChar(int pos, int i) const
 {
 	if (i == 0 || i == 1)
-	{
-		SetColorText(COLOR_ENEMY);
-		gotoxy(pos, YMAP_INI-1);
-		printf("%c", C_ENEMY);
-		gotoxy(pos, YMAP_INI);
-		printf("%c", C_ENEMY);
-		SetColorText(COLOR_RESET);
-	}
+		DrawEnemy(pos);
 	else if (i == 2)
-	{
-		SetColorText(COLOR_BULLET);
-		gotoxy(pos, YMAP_INI-1);
-		printf("%c", C_BULLET_LEFT);
-		SetColorText(COLOR_RESET);
-	}
+		DrawBullet(pos, ToLeft);
 	else if (i == 3)
-	{
-		SetColorText(COLOR_BULLET);
-		gotoxy(pos, YMAP_INI-1);
+		DrawBullet(pos, ToRight);
+}
+
+void World::DrawEnemy(int pos) const
+{
+	SetColorText(COLOR_ENEMY);
+	gotoxy(pos, YMAP_INI-2);
+	printf("%c", C_ENEMY_UP);
+	gotoxy(pos, YMAP_INI-1);
+	printf("%c", C_ENEMY_MID);
+	gotoxy(pos, YMAP_INI);
+	printf("%c", C_ENEMY_DOWN);
+	SetColorText(COLOR_RESET);
+}
+
+void World::DrawBullet(int pos, TMOV mov) const
+{
+	SetColorText(COLOR_BULLET);
+	gotoxy(pos, YMAP_INI-1);
+	if (mov == ToLeft)
+		printf("%c", C_BULLET_LEFT);
+	else
 		printf("%c", C_BULLET_RIGHT);
-		SetColorText(COLOR_RESET);
-	}
+	SetColorText(COLOR_RESET);
 }
 
 void World::DrawInfo() const
@@ -307,10 +315,10 @@ void World::DrawInfo() const
 	SetColorText(COLOR_INFO);
 	gotoxy(XINFO_INI, YINFO_INI);
 	printf("MOVE %c <-  %c ->\t", toupper(LEFT_KEY), toupper(RIGHT_KEY));
-	printf("SHOT %c <-  %c ->\t", toupper(LEFT_SHOT), toupper(RIGHT_SHOT));
+	printf("SHOOT %c <-  %c ->\t", toupper(LEFT_SHOT), toupper(RIGHT_SHOT));
 	SetColorText(COLOR_INFO);
 	SetColorText(COLOR_RESET);
-	printf("\tSCORE: %d", m_numMurders);
+	printf("SCORE: %d", m_numMurders);
 }
 
 void World::DrawGameOver() const
@@ -335,6 +343,7 @@ void World::DrawStartPlay() const
 	{
 		gotoxy(halfBase - 13, halfHeight + 1);
 		printf("START PLAYING IN %d SECONDS", i);
+		hidecursor();
 		Sleep(1000);
 	}
 }
