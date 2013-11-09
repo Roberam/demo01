@@ -328,12 +328,13 @@ void World::DrawGameOver() const
 void World::DrawStartPlay() const
 {
 	DrawFrame();
+	DrawInfo();
 	int halfBase = (XMAP_INI + XMAP_FIN)/2;
 	int halfHeight = (YSKY_INI + YMAP_INI)/2;
 	for(int i = 5; i > 0; i--)
 	{
-		gotoxy(halfBase - 8, halfHeight + 1);
-		printf("COMIENZO EN... %d", i);
+		gotoxy(halfBase - 13, halfHeight + 1);
+		printf("START PLAYING IN %d SECONDS", i);
 		Sleep(1000);
 	}
 }

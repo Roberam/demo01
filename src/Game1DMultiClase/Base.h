@@ -74,7 +74,7 @@ const int COLOR_RAINDROP = 3;	//DARK_AQUA
 //Color del marco.
 const int COLOR_FRAME = 7;	//COLOR_TEXT_CONSOLE
 //Color de la info.
-const int COLOR_INFO = 8;	//GREY
+const int COLOR_INFO = 7;	//GREY
 //Color del fondo.
 const int COLOR_BACK = 0;	//COLOR_CONSOLE
 //Color del mapa.
